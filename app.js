@@ -1,6 +1,6 @@
 
 
-function doTextAnalyze(string){
+/*function doTextAnalyze(string){
   var words = $('#user-text').val().split(" ");
   var text = [];
   for (var i=0; i < words.length; i++) {
@@ -10,19 +10,50 @@ function doTextAnalyze(string){
     }
   }
   console.log(text.length);
+}*/
+
+function tokenizeText(text) {
+  var final = text.toLowerCase().match(/\b[^\s]+\b/g).sort();
+  return final;
 }
 
+function uniqueWordCount(tokens){
+  var distinctWords = [];
+  for (var i=0; i<tokens.length; i++) {
+    if (distinctWords.indexOf(tokens[i]) === -1) {
+      distinctWords.push(tokens[i]);
+    }
+  }
+  return distinctWords.length;
+}
 
-function numberOfWords(string){
-  var numOfArray = doTextAnalyze(string);
-  console.log(numOfArray);
+function averageWordLength(tokens){
+
+}
+
+function averageSentenceLength(tokens) {
+
+}
+
+function doTextAnalyze(text) {
+  var words = tokenizeText(text);
+  var numWords = words.length;
+  var uniqueWords = uniqueWordCount(words);
+  var avgWordLength = averageWordLength(words);
+  var avgSentenceLength = averageSentenceLength(words);
+
+  var textReport = $('.js-text-report');
+  textReport.find('.js-word-count').text(numWords);
+  textReport.find('.js-unique-word-count').text(uniqueWords);
+
+  $(textReport).removeClass('hidden');
 }
 
 function finalRun(){
   $("form").submit(function( event ) {
     event.preventDefault();
     var value = $('#user-text').val();
-    numberOfWords(value);
+    doTextAnalyze(value);
   });
 }
 
