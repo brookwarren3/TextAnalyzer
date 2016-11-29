@@ -12,31 +12,33 @@
   console.log(text.length);
 }*/
 
-function tokenizeText(text) {
+function divideText(text) {
   var final = text.toLowerCase().match(/\b[^\s]+\b/g).sort();
   return final;
 }
 
-function uniqueWordCount(tokens){
+function uniqueWordCount(words){
   var distinctWords = [];
-  for (var i=0; i<tokens.length; i++) {
-    if (distinctWords.indexOf(tokens[i]) === -1) {
-      distinctWords.push(tokens[i]);
+  for (var i=0; i<words.length; i++) {
+    if (distinctWords.indexOf(words[i]) === -1) {
+      distinctWords.push(words[i]);
     }
   }
   return distinctWords.length;
 }
 
-function averageWordLength(tokens){
-
+function averageWordLength(words){
+  var totalLength = words.join("").length;
+  console.log(totalLength);
+  return (totalLength/words.length).toFixed(2);
 }
 
-function averageSentenceLength(tokens) {
-
+function averageSentenceLength(words) {
+  var totalLength = words.join()
 }
 
 function doTextAnalyze(text) {
-  var words = tokenizeText(text);
+  var words = divideText(text);
   var numWords = words.length;
   var uniqueWords = uniqueWordCount(words);
   var avgWordLength = averageWordLength(words);
@@ -45,6 +47,7 @@ function doTextAnalyze(text) {
   var textReport = $('.js-text-report');
   textReport.find('.js-word-count').text(numWords);
   textReport.find('.js-unique-word-count').text(uniqueWords);
+  textReport.find('.js-average-word-length').text(avgWordLength);
 
   $(textReport).removeClass('hidden');
 }
